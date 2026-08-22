@@ -1,5 +1,9 @@
 # AI Study Assistant
 
+## 🚀 Live Website
+[Visit AI Study Assistant](https://adarshjagtap797-anj.github.io/ai-study-assistant/)
+# AI Study Assistant
+
 ## 📚 Project Overview
 AI Study Assistant is a student-focused project designed to help students study, manage notes, solve doubts, and organize their study schedule.
 
