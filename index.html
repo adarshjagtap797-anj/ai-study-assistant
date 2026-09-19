@@ -1,685 +1,317 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-```
-<title>AI Study Assistant</title>
-
-<meta name="description" content="AI Study Assistant - Your smart partner for learning, planning and academic success.">
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="AI Study Assistant - Smart tools for learning, planning, notes and quizzes.">
+<title>AI Study Assistant | Smart Learning Platform</title>
 <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    html {
-        scroll-behavior: smooth;
-    }
-
-    body {
-        font-family: Inter, Arial, sans-serif;
-        background: #f5f7fb;
-        color: #172033;
-        line-height: 1.6;
-    }
-
-    /* NAVBAR */
-    .navbar {
-        width: 100%;
-        background: rgba(255,255,255,0.95);
-        border-bottom: 1px solid #e7eaf0;
-        padding: 18px 7%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        backdrop-filter: blur(12px);
-    }
-
-    .logo {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-size: 21px;
-        font-weight: 800;
-        color: #4f46e5;
-    }
-
-    .logo-icon {
-        width: 40px;
-        height: 40px;
-        border-radius: 12px;
-        background: #4f46e5;
-        color: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 21px;
-    }
-
-    .nav-links {
-        display: flex;
-        gap: 28px;
-        list-style: none;
-    }
-
-    .nav-links a {
-        text-decoration: none;
-        color: #667085;
-        font-size: 14px;
-        font-weight: 600;
-        transition: 0.3s;
-    }
-
-    .nav-links a:hover {
-        color: #4f46e5;
-    }
-
-    .nav-btn {
-        background: #4f46e5;
-        color: white !important;
-        padding: 10px 18px;
-        border-radius: 10px;
-    }
-
-    /* HERO */
-    .hero {
-        max-width: 1200px;
-        margin: auto;
-        padding: 90px 7% 70px;
-        display: grid;
-        grid-template-columns: 1.2fr 0.8fr;
-        gap: 60px;
-        align-items: center;
-    }
-
-    .badge {
-        display: inline-block;
-        background: #eef2ff;
-        color: #4f46e5;
-        padding: 7px 13px;
-        border-radius: 30px;
-        font-size: 13px;
-        font-weight: 700;
-        margin-bottom: 20px;
-    }
-
-    .hero h1 {
-        font-size: clamp(42px, 5vw, 68px);
-        line-height: 1.05;
-        letter-spacing: -2px;
-        margin-bottom: 22px;
-    }
-
-    .hero h1 span {
-        color: #4f46e5;
-    }
-
-    .hero p {
-        color: #667085;
-        max-width: 600px;
-        font-size: 18px;
-        margin-bottom: 30px;
-    }
-
-    .hero-buttons {
-        display: flex;
-        gap: 14px;
-        flex-wrap: wrap;
-    }
-
-    .primary-btn,
-    .secondary-btn {
-        border: none;
-        padding: 14px 22px;
-        border-radius: 12px;
-        font-weight: 700;
-        cursor: pointer;
-        text-decoration: none;
-        transition: 0.3s;
-        display: inline-block;
-    }
-
-    .primary-btn {
-        background: #4f46e5;
-        color: white;
-    }
-
-    .primary-btn:hover {
-        transform: translateY(-2px);
-    }
-
-    .secondary-btn {
-        background: white;
-        color: #344054;
-        border: 1px solid #e4e7ec;
-    }
-
-    /* HERO CARD */
-    .hero-card {
-        background: white;
-        border: 1px solid #e8eaf0;
-        border-radius: 24px;
-        padding: 25px;
-        box-shadow: 0 20px 60px rgba(16,24,40,0.08);
-    }
-
-    .hero-card-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 25px;
-    }
-
-    .hero-card-header h3 {
-        font-size: 17px;
-    }
-
-    .status {
-        font-size: 12px;
-        background: #ecfdf3;
-        color: #027a48;
-        padding: 6px 10px;
-        border-radius: 20px;
-        font-weight: 700;
-    }
-
-    .progress-box {
-        background: #f8f9fc;
-        padding: 18px;
-        border-radius: 15px;
-        margin-bottom: 14px;
-    }
-
-    .progress-top {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 10px;
-        font-size: 13px;
-        font-weight: 700;
-    }
-
-    .progress {
-        height: 8px;
-        background: #e5e7eb;
-        border-radius: 20px;
-        overflow: hidden;
-    }
-
-    .progress div {
-        height: 100%;
-        width: 72%;
-        background: #4f46e5;
-        border-radius: 20px;
-    }
-
-    /* SECTION */
-    .section {
-        max-width: 1200px;
-        margin: auto;
-        padding: 70px 7%;
-    }
-
-    .section-heading {
-        text-align: center;
-        margin-bottom: 45px;
-    }
-
-    .section-heading h2 {
-        font-size: 34px;
-        margin-bottom: 10px;
-    }
-
-    .section-heading p {
-        color: #667085;
-    }
-
-    /* FEATURES */
-    .feature-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-    }
-
-    .feature-card {
-        background: white;
-        padding: 28px;
-        border-radius: 18px;
-        border: 1px solid #e8eaf0;
-        transition: 0.3s;
-    }
-
-    .feature-card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 15px 40px rgba(16,24,40,0.08);
-    }
-
-    .feature-icon {
-        width: 48px;
-        height: 48px;
-        border-radius: 14px;
-        background: #eef2ff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 23px;
-        margin-bottom: 18px;
-    }
-
-    .feature-card h3 {
-        margin-bottom: 8px;
-        font-size: 18px;
-    }
-
-    .feature-card p {
-        color: #667085;
-        font-size: 14px;
-        margin-bottom: 18px;
-    }
-
-    .card-link {
-        color: #4f46e5;
-        text-decoration: none;
-        font-size: 14px;
-        font-weight: 700;
-    }
-
-    /* AI SECTION */
-    .ai-section {
-        background: #111827;
-        color: white;
-        border-radius: 28px;
-        padding: 55px;
-        display: grid;
-        grid-template-columns: 0.8fr 1.2fr;
-        gap: 45px;
-        align-items: center;
-    }
-
-    .ai-section h2 {
-        font-size: 38px;
-        margin-bottom: 15px;
-    }
-
-    .ai-section p {
-        color: #aab2c0;
-        margin-bottom: 25px;
-    }
-
-    .ai-input {
-        background: white;
-        padding: 8px;
-        border-radius: 14px;
-        display: flex;
-        gap: 8px;
-    }
-
-    .ai-input input {
-        flex: 1;
-        border: none;
-        outline: none;
-        padding: 12px;
-        font-size: 14px;
-    }
-
-    .ai-input button {
-        border: none;
-        background: #4f46e5;
-        color: white;
-        padding: 12px 20px;
-        border-radius: 10px;
-        font-weight: 700;
-        cursor: pointer;
-    }
-
-    /* STATS */
-    .stats {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 18px;
-    }
-
-    .stat-card {
-        background: white;
-        border: 1px solid #e8eaf0;
-        border-radius: 16px;
-        padding: 25px;
-        text-align: center;
-    }
-
-    .stat-card h3 {
-        font-size: 30px;
-        color: #4f46e5;
-    }
-
-    .stat-card p {
-        color: #667085;
-        font-size: 13px;
-    }
-
-    /* FOOTER */
-    footer {
-        background: #111827;
-        color: #98a2b3;
-        text-align: center;
-        padding: 30px 20px;
-        margin-top: 50px;
-        font-size: 14px;
-    }
-
-    footer strong {
-        color: white;
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 850px) {
-        .nav-links {
-            display: none;
-        }
-
-        .hero,
-        .ai-section {
-            grid-template-columns: 1fr;
-        }
-
-        .feature-grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
-
-        .stats {
-            grid-template-columns: repeat(2, 1fr);
-        }
-
-        .ai-section {
-            padding: 35px;
-        }
-    }
-
-    @media (max-width: 550px) {
-        .hero {
-            padding-top: 60px;
-        }
-
-        .feature-grid,
-        .stats {
-            grid-template-columns: 1fr;
-        }
-
-        .hero h1 {
-            font-size: 42px;
-        }
-
-        .ai-section h2 {
-            font-size: 30px;
-        }
-
-        .ai-input {
-            flex-direction: column;
-        }
-    }
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:#f6f8fc;color:#172033;line-height:1.6}
+body.dark{background:#0b1020;color:#edf2ff}
+body.dark .navbar,body.dark .feature-card,body.dark .stat-card,body.dark .hero-card,body.dark .modal-card,body.dark .planner-card,body.dark .resource-card{background:#11182b;border-color:#26304a}
+body.dark .nav-links a,body.dark .hero p,body.dark .section-heading p,body.dark .feature-card p,body.dark .stat-card p,.dark .muted{color:#aab5ce}
+body.dark .secondary-btn{background:#11182b;color:#edf2ff;border-color:#2b3652}
+body.dark .progress-box{background:#182139}
+button,a{font:inherit}
+button{cursor:pointer}
+.navbar{width:100%;background:rgba(255,255,255,.94);border-bottom:1px solid #e7eaf0;padding:14px 6%;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:1000;backdrop-filter:blur(14px)}
+.logo{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:800;color:#4f46e5}
+.logo-icon{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:white;display:flex;align-items:center;justify-content:center}
+.nav-links{display:flex;gap:24px;list-style:none}
+.nav-links a{text-decoration:none;color:#667085;font-size:14px;font-weight:650}
+.nav-links a:hover{color:#4f46e5}
+.nav-actions{display:flex;gap:8px;align-items:center}
+.icon-btn,.nav-btn{border:0;border-radius:10px;padding:9px 13px}
+.icon-btn{background:#eef2ff;color:#4f46e5}
+.nav-btn{background:#4f46e5;color:white;text-decoration:none;font-weight:700}
+.hero{max-width:1200px;margin:auto;padding:82px 6% 65px;display:grid;grid-template-columns:1.15fr .85fr;gap:55px;align-items:center}
+.badge{display:inline-flex;background:#eef2ff;color:#4f46e5;padding:7px 13px;border-radius:30px;font-size:12px;font-weight:800;margin-bottom:18px}
+.hero h1{font-size:clamp(42px,5.5vw,68px);line-height:1.04;letter-spacing:-2.5px;margin-bottom:20px}
+.hero h1 span{color:#4f46e5}
+.hero p{color:#667085;max-width:650px;font-size:18px;margin-bottom:28px}
+.hero-buttons{display:flex;gap:12px;flex-wrap:wrap}
+.primary-btn,.secondary-btn{border:0;padding:13px 20px;border-radius:12px;font-weight:750;text-decoration:none;display:inline-block;transition:.2s}
+.primary-btn{background:#4f46e5;color:white}
+.secondary-btn{background:white;color:#344054;border:1px solid #e4e7ec}
+.primary-btn:hover,.secondary-btn:hover,.feature-card:hover{transform:translateY(-2px)}
+.hero-card{background:white;border:1px solid #e8eaf0;border-radius:24px;padding:25px;box-shadow:0 20px 60px rgba(16,24,40,.08)}
+.hero-card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
+.status{font-size:12px;background:#ecfdf3;color:#027a48;padding:6px 10px;border-radius:20px;font-weight:750}
+.progress-box{background:#f8f9fc;padding:16px;border-radius:15px;margin-bottom:12px}
+.progress-top{display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px;font-weight:700}
+.progress{height:8px;background:#e5e7eb;border-radius:20px;overflow:hidden}
+.progress div{height:100%;border-radius:20px;background:linear-gradient(90deg,#4f46e5,#8b5cf6)}
+.section{max-width:1200px;margin:auto;padding:65px 6%}
+.section-heading{text-align:center;margin-bottom:38px}
+.section-heading h2{font-size:34px;margin-bottom:8px}
+.section-heading p{color:#667085}
+.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.feature-card,.resource-card,.planner-card,.stat-card{background:white;padding:24px;border-radius:18px;border:1px solid #e8eaf0;transition:.2s}
+.feature-icon{width:48px;height:48px;border-radius:14px;background:#eef2ff;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px}
+.feature-card h3{margin-bottom:7px;font-size:18px}
+.feature-card p{color:#667085;font-size:14px;margin-bottom:16px}
+.card-link{border:0;background:none;color:#4f46e5;font-size:14px;font-weight:750;padding:0}
+.ai-section{background:linear-gradient(135deg,#111827,#1f2450);color:white;border-radius:28px;padding:48px;display:grid;grid-template-columns:.75fr 1.25fr;gap:40px;align-items:start}
+.ai-section h2{font-size:38px;margin-bottom:12px}
+.ai-section p{color:#b8c0d1;margin-bottom:18px}
+.ai-input{background:white;padding:8px;border-radius:14px;display:flex;gap:8px}
+.ai-input input{flex:1;border:0;outline:0;padding:12px;font-size:14px;min-width:0}
+.ai-input button{border:0;background:#4f46e5;color:white;padding:12px 18px;border-radius:10px;font-weight:750}
+.ai-result{margin-top:14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:15px;padding:16px;min-height:74px;white-space:pre-wrap}
+.ai-result strong{color:#c7d2fe}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.stat-card{text-align:center}
+.stat-card h3{font-size:30px;color:#4f46e5}
+.stat-card p{color:#667085;font-size:13px}
+.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.resource-list{display:grid;gap:12px}
+.resource-card{display:flex;align-items:center;justify-content:space-between;gap:15px}
+.resource-card h4{margin-bottom:3px}
+.resource-card p{font-size:13px;color:#667085}
+.small-btn{border:0;background:#eef2ff;color:#4f46e5;padding:9px 13px;border-radius:9px;font-weight:700}
+.planner-card input,.planner-card select{width:100%;padding:11px;border:1px solid #d9deea;border-radius:10px;margin:6px 0 12px;outline:none}
+.planner-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.plan-list{margin-top:12px;display:grid;gap:8px}
+.plan-item{padding:10px 12px;background:#f6f7fb;border-radius:10px;font-size:14px}
+body.dark .plan-item{background:#182139}
+footer{background:#111827;color:#98a2b3;text-align:center;padding:30px 20px;margin-top:30px;font-size:14px}
+footer strong{color:white}
+.modal{display:none;position:fixed;inset:0;background:rgba(15,23,42,.65);z-index:2000;align-items:center;justify-content:center;padding:20px}
+.modal.show{display:flex}
+.modal-card{background:white;border-radius:20px;width:min(650px,100%);max-height:85vh;overflow:auto;padding:25px;position:relative}
+.modal-close{position:absolute;right:15px;top:12px;border:0;background:#eef2ff;color:#4f46e5;border-radius:50%;width:34px;height:34px}
+.modal-card h2{margin-bottom:8px}
+.modal-card p{color:#667085;margin-bottom:14px}
+.quiz-question{font-weight:750;margin:18px 0 10px}
+.quiz-options{display:grid;gap:8px}
+.quiz-options button{text-align:left;border:1px solid #dce1eb;background:#fafbfe;padding:10px;border-radius:10px}
+.quiz-options button:hover{border-color:#4f46e5}
+.toast{position:fixed;right:20px;bottom:20px;background:#111827;color:white;padding:12px 16px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.2);display:none;z-index:3000}
+.toast.show{display:block}
+@media(max-width:850px){
+.nav-links{display:none}.hero,.ai-section{grid-template-columns:1fr}.feature-grid{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}.quick-grid{grid-template-columns:1fr}
+}
+@media(max-width:550px){
+.hero{padding-top:55px}.feature-grid,.stats{grid-template-columns:1fr}.hero h1{font-size:42px}.ai-section{padding:30px}.ai-section h2{font-size:30px}.ai-input{flex-direction:column}.nav-btn{display:none}.planner-row{grid-template-columns:1fr}
+}
 </style>
-```
-
 </head>
-
 <body>
 
-```
-<!-- NAVBAR -->
 <nav class="navbar">
-    <div class="logo">
-        <div class="logo-icon">🤖</div>
-        AI Study Assistant
-    </div>
-
-    <ul class="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#features">Features</a></li>
-        <li><a href="#ai">AI Tutor</a></li>
-        <li><a href="#progress">Progress</a></li>
-        <li><a href="#about">About</a></li>
-    </ul>
-
+  <div class="logo"><div class="logo-icon">🤖</div>AI Study Assistant</div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li><li><a href="#features">Features</a></li><li><a href="#ai">AI Tutor</a></li><li><a href="#progress">Progress</a></li><li><a href="#about">About</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="icon-btn" onclick="toggleTheme()" title="Toggle theme">🌙</button>
     <a href="#ai" class="nav-btn">Ask AI</a>
+  </div>
 </nav>
 
-
-<!-- HERO -->
 <section class="hero" id="home">
-
-    <div>
-        <div class="badge">✨ Smart Learning Platform</div>
-
-        <h1>
-            Study smarter.<br>
-            Learn <span>better.</span>
-        </h1>
-
-        <p>
-            Your personal AI-powered study companion for solving doubts,
-            managing resources, creating study plans and improving academic performance.
-        </p>
-
-        <div class="hero-buttons">
-            <a href="#ai" class="primary-btn">🤖 Ask AI</a>
-            <a href="#features" class="secondary-btn">Explore Features</a>
-        </div>
+  <div>
+    <div class="badge">✨ Smart Learning Platform</div>
+    <h1>Study smarter.<br>Learn <span>better.</span></h1>
+    <p>Your personal study companion for solving doubts, creating notes, practicing quizzes, planning study sessions and tracking your learning progress.</p>
+    <div class="hero-buttons">
+      <a href="#ai" class="primary-btn">🤖 Ask AI</a>
+      <a href="#features" class="secondary-btn">Explore Features</a>
     </div>
-
-
-    <div class="hero-card">
-
-        <div class="hero-card-header">
-            <h3>📊 Today's Progress</h3>
-            <span class="status">● On Track</span>
-        </div>
-
-        <div class="progress-box">
-            <div class="progress-top">
-                <span>Data Structures</span>
-                <span>72%</span>
-            </div>
-
-            <div class="progress">
-                <div></div>
-            </div>
-        </div>
-
-        <div class="progress-box">
-            <div class="progress-top">
-                <span>AI & Machine Learning</span>
-                <span>48%</span>
-            </div>
-
-            <div class="progress">
-                <div style="width:48%"></div>
-            </div>
-        </div>
-
-        <div class="progress-box">
-            <div class="progress-top">
-                <span>Mathematics</span>
-                <span>85%</span>
-            </div>
-
-            <div class="progress">
-                <div style="width:85%"></div>
-            </div>
-        </div>
-
-    </div>
-
+  </div>
+  <div class="hero-card">
+    <div class="hero-card-header"><h3>📊 Today's Progress</h3><span class="status">● On Track</span></div>
+    <div class="progress-box"><div class="progress-top"><span>Data Structures</span><span>72%</span></div><div class="progress"><div style="width:72%"></div></div></div>
+    <div class="progress-box"><div class="progress-top"><span>AI & Machine Learning</span><span>48%</span></div><div class="progress"><div style="width:48%"></div></div></div>
+    <div class="progress-box"><div class="progress-top"><span>Mathematics</span><span>85%</span></div><div class="progress"><div style="width:85%"></div></div></div>
+  </div>
 </section>
 
-
-<!-- FEATURES -->
 <section class="section" id="features">
-
-    <div class="section-heading">
-        <h2>Everything you need to study</h2>
-        <p>Powerful tools designed for modern students.</p>
-    </div>
-
-    <div class="feature-grid">
-
-        <div class="feature-card">
-            <div class="feature-icon">📚</div>
-            <h3>Study Resources</h3>
-            <p>Access notes, study material and previous year questions in one place.</p>
-            <a href="#" class="card-link">Explore Resources →</a>
-        </div>
-
-        <div class="feature-card">
-            <div class="feature-icon">🤖</div>
-            <h3>AI Doubt Solver</h3>
-            <p>Ask academic questions and get clear, step-by-step explanations.</p>
-            <a href="#ai" class="card-link">Ask AI →</a>
-        </div>
-
-        <div class="feature-card">
-            <div class="feature-icon">📝</div>
-            <h3>AI Notes</h3>
-            <p>Generate concise and easy-to-understand notes from any topic.</p>
-            <a href="#" class="card-link">Create Notes →</a>
-        </div>
-
-        <div class="feature-card">
-            <div class="feature-icon">🧠</div>
-            <h3>AI Quiz</h3>
-            <p>Practice with topic-based questions and test your knowledge.</p>
-            <a href="#" class="card-link">Take Quiz →</a>
-        </div>
-
-        <div class="feature-card">
-            <div class="feature-icon">📅</div>
-            <h3>Study Planner</h3>
-            <p>Create organized study schedules and stay consistent with your goals.</p>
-            <a href="#" class="card-link">Plan Study →</a>
-        </div>
-
-        <div class="feature-card">
-            <div class="feature-icon">📢</div>
-            <h3>College Events</h3>
-            <p>Keep track of workshops, events, exams and important announcements.</p>
-            <a href="#" class="card-link">View Events →</a>
-        </div>
-
-    </div>
-
+  <div class="section-heading"><h2>Everything you need to study</h2><p>Useful tools in one simple student dashboard.</p></div>
+  <div class="feature-grid">
+    <div class="feature-card"><div class="feature-icon">📚</div><h3>Study Resources</h3><p>Quick access to notes, reference material and previous year questions.</p><button class="card-link" onclick="openResources()">Explore Resources →</button></div>
+    <div class="feature-card"><div class="feature-icon">🤖</div><h3>AI Doubt Solver</h3><p>Ask academic questions and get simple step-by-step guidance.</p><button class="card-link" onclick="document.getElementById('doubtInput').focus();location.hash='ai'">Ask AI →</button></div>
+    <div class="feature-card"><div class="feature-icon">📝</div><h3>AI Notes</h3><p>Generate a quick study-note outline from any topic.</p><button class="card-link" onclick="openNotes()">Create Notes →</button></div>
+    <div class="feature-card"><div class="feature-icon">🧠</div><h3>AI Quiz</h3><p>Practice with a quick computer science quiz and see your score.</p><button class="card-link" onclick="openQuiz()">Take Quiz →</button></div>
+    <div class="feature-card"><div class="feature-icon">📅</div><h3>Study Planner</h3><p>Create study tasks and save them in your browser.</p><button class="card-link" onclick="document.getElementById('planner').scrollIntoView()">Plan Study →</button></div>
+    <div class="feature-card"><div class="feature-icon">📢</div><h3>College Events</h3><p>Keep important workshops, exams and announcements organized.</p><button class="card-link" onclick="openEvents()">View Events →</button></div>
+  </div>
 </section>
 
-
-<!-- AI TUTOR -->
 <section class="section" id="ai">
-
-    <div class="ai-section">
-
-        <div>
-            <div class="badge">🤖 AI Tutor</div>
-
-            <h2>Stuck on a question?</h2>
-
-            <p>
-                Ask your doubt and get a simple explanation that helps
-                you actually understand the concept.
-            </p>
-        </div>
-
-        <div class="ai-input">
-            <input
-                type="text"
-                placeholder="Example: Explain binary search..."
-            >
-
-            <button onclick="askAI()">Ask AI</button>
-        </div>
-
+  <div class="ai-section">
+    <div>
+      <div class="badge">🤖 AI Tutor</div>
+      <h2>Stuck on a question?</h2>
+      <p>Ask a study question and get an instant learning-oriented explanation. This static version uses a built-in demo assistant; a real AI API can be connected later through a secure backend.</p>
     </div>
-
+    <div>
+      <div class="ai-input">
+        <input id="doubtInput" type="text" placeholder="Example: Explain binary search..." onkeydown="if(event.key==='Enter')askAI()">
+        <button onclick="askAI()">Ask AI</button>
+      </div>
+      <div id="aiResult" class="ai-result">💡 Your explanation will appear here.</div>
+    </div>
+  </div>
 </section>
 
-
-<!-- STATS -->
 <section class="section" id="progress">
-
-    <div class="section-heading">
-        <h2>Your Learning Journey</h2>
-        <p>Track your academic progress.</p>
-    </div>
-
-    <div class="stats">
-
-        <div class="stat-card">
-            <h3>24</h3>
-            <p>Topics Studied</p>
-        </div>
-
-        <div class="stat-card">
-            <h3>18</h3>
-            <p>Quizzes Completed</p>
-        </div>
-
-        <div class="stat-card">
-            <h3>72%</h3>
-            <p>Average Score</p>
-        </div>
-
-        <div class="stat-card">
-            <h3>12h</h3>
-            <p>Study Time</p>
-        </div>
-
-    </div>
-
+  <div class="section-heading"><h2>Your Learning Journey</h2><p>Track your activity directly in your browser.</p></div>
+  <div class="stats">
+    <div class="stat-card"><h3 id="topicCount">24</h3><p>Topics Studied</p></div>
+    <div class="stat-card"><h3 id="quizCount">18</h3><p>Quizzes Completed</p></div>
+    <div class="stat-card"><h3 id="scoreCount">72%</h3><p>Average Score</p></div>
+    <div class="stat-card"><h3 id="studyTime">12h</h3><p>Study Time</p></div>
+  </div>
 </section>
 
+<section class="section" id="planner">
+  <div class="section-heading"><h2>📅 Study Planner</h2><p>Create tasks and keep your daily plan saved on this device.</p></div>
+  <div class="planner-card">
+    <div class="planner-row">
+      <div><label>Subject</label><input id="planSubject" placeholder="e.g. Data Structures"></div>
+      <div><label>Duration</label><input id="planDuration" placeholder="e.g. 60 minutes"></div>
+    </div>
+    <label>Task</label><input id="planTask" placeholder="e.g. Revise binary trees">
+    <button class="primary-btn" onclick="addPlan()">+ Add Study Task</button>
+    <div id="planList" class="plan-list"></div>
+  </div>
+</section>
 
-<!-- ABOUT -->
+<section class="section">
+  <div class="section-heading"><h2>📚 Quick Resources</h2><p>Sample resources to demonstrate the dashboard experience.</p></div>
+  <div class="quick-grid">
+    <div class="resource-list">
+      <div class="resource-card"><div><h4>📘 Data Structures Notes</h4><p>Arrays, linked lists, stacks, queues and trees.</p></div><button class="small-btn" onclick="showToast('Resource section opened')">Open</button></div>
+      <div class="resource-card"><div><h4>📝 Previous Year Questions</h4><p>Practice common university-style questions.</p></div><button class="small-btn" onclick="showToast('PYQ section opened')">Open</button></div>
+    </div>
+    <div class="resource-list">
+      <div class="resource-card"><div><h4>🤖 AI & ML Roadmap</h4><p>Python → data → machine learning → projects.</p></div><button class="small-btn" onclick="openNotes('AI & Machine Learning')">View</button></div>
+      <div class="resource-card"><div><h4>💻 Programming Practice</h4><p>Build consistency with small coding problems.</p></div><button class="small-btn" onclick="openQuiz()">Practice</button></div>
+    </div>
+  </div>
+</section>
+
 <section class="section" id="about">
-
-    <div class="section-heading">
-        <h2>Built for students</h2>
-        <p>
-            AI Study Assistant brings your learning resources,
-            AI tools and study planning into one simple platform.
-        </p>
-    </div>
-
+  <div class="section-heading"><h2>Built for students</h2><p>AI Study Assistant combines study resources, an interactive demo tutor, notes, quizzes, planning and progress tracking in one responsive website.</p></div>
 </section>
 
+<footer><p>© 2026 <strong>AI Study Assistant</strong> · Built by Adarsh Jagtap</p></footer>
 
-<!-- FOOTER -->
-<footer>
-    <p>
-        © 2026 <strong>AI Study Assistant</strong> · Built by Adarsh Jagtap
-    </p>
-</footer>
-
+<div id="modal" class="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-card" id="modalContent"></div>
+</div>
+<div id="toast" class="toast"></div>
 
 <script>
-    function askAI() {
-        const input = document.querySelector(".ai-input input");
-        const question = input.value.trim();
+const STORAGE_KEY="aiStudyAssistantPlans";
+const state={quizDone:Number(localStorage.getItem("asaQuizDone")||18),score:Number(localStorage.getItem("asaScore")||72)};
 
-        if (!question) {
-            alert("Please enter your doubt first.");
-            return;
-        }
+function showToast(message){
+  const t=document.getElementById("toast"); t.textContent=message; t.classList.add("show");
+  setTimeout(()=>t.classList.remove("show"),2200);
+}
+function toggleTheme(){
+  document.body.classList.toggle("dark");
+  localStorage.setItem("asaTheme",document.body.classList.contains("dark")?"dark":"light");
+}
+if(localStorage.getItem("asaTheme")==="dark")document.body.classList.add("dark");
 
-        alert(
-            "Your question has been received! 🤖\n\n" +
-            "AI integration will be connected in the next step."
-        );
-    }
+function askAI(){
+  const input=document.getElementById("doubtInput"), result=document.getElementById("aiResult");
+  const q=input.value.trim().toLowerCase();
+  if(!q){result.innerHTML="⚠️ Please enter your doubt first.";return;}
+  result.innerHTML="⏳ Thinking...";
+  setTimeout(()=>{
+    let answer="";
+    if(q.includes("binary search")) answer="Binary Search is a searching algorithm for a sorted array.\n\n1. Find the middle element.\n2. Compare it with the target.\n3. If the target is smaller, search the left half.\n4. If larger, search the right half.\n5. Repeat until found or the range becomes empty.\n\nTime complexity: O(log n).";
+    else if(q.includes("array")) answer="An array stores elements of the same type in contiguous memory locations. It provides fast index-based access, usually O(1), but insertion/deletion in the middle can require shifting elements.";
+    else if(q.includes("stack")) answer="A stack follows LIFO — Last In, First Out.\n\nMain operations:\n• push: add an element\n• pop: remove the top element\n• peek: view the top element\n\nCommon uses include function calls, undo operations and expression evaluation.";
+    else if(q.includes("queue")) answer="A queue follows FIFO — First In, First Out.\n\nInsertion happens at the rear and deletion happens at the front. Queues are commonly used in scheduling, buffering and breadth-first search.";
+    else if(q.includes("machine learning")||q.includes("ml")) answer="Machine Learning is a method where computers learn patterns from data to make predictions or decisions.\n\nMain types:\n• Supervised learning\n• Unsupervised learning\n• Reinforcement learning\n\nA typical workflow is: collect data → clean data → train model → evaluate → improve.";
+    else if(q.includes("ai")||q.includes("artificial intelligence")) answer="Artificial Intelligence is the broader field of building systems that perform tasks associated with human intelligence, such as understanding language, recognizing patterns, reasoning and making decisions.";
+    else if(q.includes("python")) answer="Python is a high-level programming language known for readable syntax and a large ecosystem. It is widely used in web development, automation, data science, AI and machine learning.";
+    else answer="I can help you learn this topic step by step.\n\nTry asking something specific such as:\n• Explain binary search\n• What is a stack?\n• Explain machine learning\n• What is an array?\n• Explain Python\n\nNote: this is the built-in demo tutor. Real generative AI will require a secure backend/API connection.";
+    result.innerHTML="<strong>🤖 Study Assistant</strong><br><br>"+answer.replace(/\n/g,"<br>");
+  },500);
+}
+
+function openModal(html){document.getElementById("modalContent").innerHTML=html;document.getElementById("modal").classList.add("show")}
+function closeModal(){document.getElementById("modal").classList.remove("show")}
+
+function openResources(){
+  openModal(`<button class="modal-close" onclick="closeModal()">×</button><h2>📚 Study Resources</h2><p>Choose a resource to start studying.</p>
+  <div class="resource-list">
+    <div class="resource-card"><div><h4>Data Structures</h4><p>Arrays, linked lists, stacks, queues and trees.</p></div><button class="small-btn" onclick="showToast('Data Structures selected')">Open</button></div>
+    <div class="resource-card"><div><h4>AI & Machine Learning</h4><p>AI basics, ML workflow and common algorithms.</p></div><button class="small-btn" onclick="openNotes('AI & Machine Learning')">Notes</button></div>
+    <div class="resource-card"><div><h4>Previous Year Questions</h4><p>Use these as a practice checklist for exams.</p></div><button class="small-btn" onclick="showToast('PYQ section selected')">Open</button></div>
+  </div>`);
+}
+
+function openNotes(topic="Study Topic"){
+  const clean=topic;
+  openModal(`<button class="modal-close" onclick="closeModal()">×</button><h2>📝 Quick Notes</h2><p>Topic: <strong>${clean}</strong></p>
+  <div class="plan-item"><strong>Definition</strong><br>Write the core meaning of the topic in 2–3 simple lines.</div>
+  <div class="plan-item"><strong>Key Concepts</strong><br>• Main idea<br>• Important terms<br>• Advantages / applications<br>• Complexity or important formulas where applicable</div>
+  <div class="plan-item"><strong>Exam Tip</strong><br>Learn the definition first, then understand one example and practice one question.</div>
+  <button class="primary-btn" style="margin-top:14px" onclick="showToast('Notes saved for this session');closeModal()">✓ Done</button>`);
+}
+
+const quiz=[
+ {q:"Which data structure follows LIFO?",o:["Queue","Stack","Array","Graph"],a:1},
+ {q:"What is the average time complexity of binary search?",o:["O(n)","O(log n)","O(n²)","O(1)"],a:1},
+ {q:"Which is a supervised learning task?",o:["Clustering","Classification","Association only","Dimensionality reduction only"],a:1},
+ {q:"Which language is widely used in AI and data science?",o:["Python","HTML","CSS","SQL only"],a:0}
+];
+let quizIndex=0,quizScore=0;
+function openQuiz(){
+  quizIndex=0;quizScore=0;renderQuiz();
+}
+function renderQuiz(){
+  const x=quiz[quizIndex];
+  openModal(`<button class="modal-close" onclick="closeModal()">×</button><h2>🧠 Quick Quiz</h2><p>Question ${quizIndex+1} of ${quiz.length}</p><div class="quiz-question">${x.q}</div><div class="quiz-options">${x.o.map((v,i)=>`<button onclick="answerQuiz(${i})">${String.fromCharCode(65+i)}. ${v}</button>`).join("")}</div>`);
+}
+function answerQuiz(i){
+  if(i===quiz[quizIndex].a)quizScore++;
+  quizIndex++;
+  if(quizIndex<quiz.length)renderQuiz();
+  else{
+    state.quizDone++;state.score=Math.round(((state.score*18)+quizScore*25)/(19)); 
+    localStorage.setItem("asaQuizDone",state.quizDone);localStorage.setItem("asaScore",state.score);
+    document.getElementById("quizCount").textContent=state.quizDone;
+    document.getElementById("scoreCount").textContent=state.score+"%";
+    openModal(`<button class="modal-close" onclick="closeModal()">×</button><h2>🎉 Quiz Completed</h2><p>You scored <strong>${quizScore}/${quiz.length}</strong>.</p><button class="primary-btn" onclick="closeModal()">Continue Studying</button>`);
+  }
+}
+
+function openEvents(){
+  openModal(`<button class="modal-close" onclick="closeModal()">×</button><h2>📢 College Events</h2><p>Sample event dashboard — replace these with your real college events later.</p>
+  <div class="resource-list">
+    <div class="resource-card"><div><h4>💻 Technical Workshop</h4><p>AI & Machine Learning fundamentals · Add your date/time.</p></div></div>
+    <div class="resource-card"><div><h4>🎤 Guest Lecture</h4><p>Career guidance and industry interaction.</p></div></div>
+    <div class="resource-card"><div><h4>📝 Internal Assessment</h4><p>Keep exam dates and subjects updated here.</p></div></div>
+  </div>`);
+}
+
+function getPlans(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]")}catch{return[]}}
+function savePlans(p){localStorage.setItem(STORAGE_KEY,JSON.stringify(p))}
+function renderPlans(){
+  const list=document.getElementById("planList"), plans=getPlans();
+  list.innerHTML=plans.length?plans.map((p,i)=>`<div class="plan-item"><strong>${p.subject}</strong> · ${p.duration}<br>${p.task} <button style="float:right;border:0;background:none" onclick="removePlan(${i})">🗑️</button></div>`).join(""):"<div class='plan-item'>No study tasks yet. Add your first task above.</div>";
+}
+function addPlan(){
+  const subject=document.getElementById("planSubject").value.trim(),duration=document.getElementById("planDuration").value.trim(),task=document.getElementById("planTask").value.trim();
+  if(!subject||!duration||!task){showToast("Please fill all planner fields");return}
+  const plans=getPlans();plans.push({subject,duration,task});savePlans(plans);renderPlans();
+  document.getElementById("planTask").value="";showToast("Study task added ✓");
+}
+function removePlan(i){const p=getPlans();p.splice(i,1);savePlans(p);renderPlans();showToast("Task removed")}
+renderPlans();
+document.getElementById("quizCount").textContent=state.quizDone;
+document.getElementById("scoreCount").textContent=state.score+"%";
 </script>
-```
-
 </body>
 </html>
