@@ -220,23 +220,47 @@ function toggleTheme(){
 }
 if(localStorage.getItem("asaTheme")==="dark")document.body.classList.add("dark");
 
-function askAI(){
-  const input=document.getElementById("doubtInput"), result=document.getElementById("aiResult");
-  const q=input.value.trim().toLowerCase();
-  if(!q){result.innerHTML="⚠️ Please enter your doubt first.";return;}
-  result.innerHTML="⏳ Thinking...";
-  setTimeout(()=>{
-    let answer="";
-    if(q.includes("binary search")) answer="Binary Search is a searching algorithm for a sorted array.\n\n1. Find the middle element.\n2. Compare it with the target.\n3. If the target is smaller, search the left half.\n4. If larger, search the right half.\n5. Repeat until found or the range becomes empty.\n\nTime complexity: O(log n).";
-    else if(q.includes("array")) answer="An array stores elements of the same type in contiguous memory locations. It provides fast index-based access, usually O(1), but insertion/deletion in the middle can require shifting elements.";
-    else if(q.includes("stack")) answer="A stack follows LIFO — Last In, First Out.\n\nMain operations:\n• push: add an element\n• pop: remove the top element\n• peek: view the top element\n\nCommon uses include function calls, undo operations and expression evaluation.";
-    else if(q.includes("queue")) answer="A queue follows FIFO — First In, First Out.\n\nInsertion happens at the rear and deletion happens at the front. Queues are commonly used in scheduling, buffering and breadth-first search.";
-    else if(q.includes("machine learning")||q.includes("ml")) answer="Machine Learning is a method where computers learn patterns from data to make predictions or decisions.\n\nMain types:\n• Supervised learning\n• Unsupervised learning\n• Reinforcement learning\n\nA typical workflow is: collect data → clean data → train model → evaluate → improve.";
-    else if(q.includes("ai")||q.includes("artificial intelligence")) answer="Artificial Intelligence is the broader field of building systems that perform tasks associated with human intelligence, such as understanding language, recognizing patterns, reasoning and making decisions.";
-    else if(q.includes("python")) answer="Python is a high-level programming language known for readable syntax and a large ecosystem. It is widely used in web development, automation, data science, AI and machine learning.";
-    else answer="I can help you learn this topic step by step.\n\nTry asking something specific such as:\n• Explain binary search\n• What is a stack?\n• Explain machine learning\n• What is an array?\n• Explain Python\n\nNote: this is the built-in demo tutor. Real generative AI will require a secure backend/API connection.";
-    result.innerHTML="<strong>🤖 Study Assistant</strong><br><br>"+answer.replace(/\n/g,"<br>");
-  },500);
+async function askAI() {
+    const input = document.getElementById("doubtInput");
+    const result = document.getElementById("aiResult");
+
+    const question = input.value.trim();
+
+    if (!question) {
+        result.innerHTML = "⚠️ Please enter your doubt first.";
+        return;
+    }
+
+    result.innerHTML = "⏳ Thinking...";
+
+    try {
+        const response = await fetch("http://localhost:5000/ask-ai", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                question: question
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.error || "AI request failed");
+        }
+
+        result.innerHTML =
+            "<strong>🤖 Study Assistant</strong><br><br>" +
+            data.answer.replace(/\n/g, "<br>");
+
+    } catch (error) {
+        console.error("AI Error:", error);
+
+        result.innerHTML =
+            "❌ Unable to connect to AI.<br><br>" +
+            "Please make sure the AI backend is running.";
+    }
 }
 
 function openModal(html){document.getElementById("modalContent").innerHTML=html;document.getElementById("modal").classList.add("show")}
